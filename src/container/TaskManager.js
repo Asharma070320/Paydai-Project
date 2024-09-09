@@ -236,11 +236,11 @@ const TaskManager = () => {
               </h3>
               <p>{data.description}</p>
               <div>
-                <p>{data.dueDate}</p>
-                <button onClick={() => completeTask(idx)}>
+                <p>Date:-{data.dueDate}</p>
+                <button className="completeBtn" onClick={() => completeTask(idx)}>
                   {data.completed ? "Complete" : "Incomplete"}
                 </button>
-                <button onClick={() => openDeleteModal(idx)}>Delete</button>
+                <button className="deleteBtn" onClick={() => openDeleteModal(idx)}>Delete</button>
               </div>
             </div>
           ))

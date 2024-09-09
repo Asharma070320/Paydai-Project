@@ -61,6 +61,59 @@
     cursor: pointer;
     margin-left: 5px;
   }
+  /* .completeBtn{
+    margin-right: 10px;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 4px;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+  }
+  .deleteBtn{
+    margin-right: 10px;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 4px;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+  } */
+  .button-name,
+.completeBtn,
+.deleteBtn {
+  margin-right: 10px;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 4px;
+  background-color: #007bff; /* Default background color */
+  color: white;
+  cursor: pointer;
+  outline: none; /* Remove default outline */
+  transition: background-color 1s; /* Smooth background color transition */
+}
+
+/* Button Hover State */
+.button-name:hover,
+.completeBtn:hover,
+.deleteBtn:hover {
+  background-color: #0056b3; /* Darker background color on hover */
+}
+
+/* Button Active State */
+.button-name:active,
+.completeBtn:active,
+.deleteBtn:active {
+  background-color: #004080; /* Even darker background color when clicked */
+}
+
+/* Button Focus State */
+.button-name:focus,
+.completeBtn:focus,
+.deleteBtn:focus {
+  background-color: #007bff; /* Maintain background color on focus */
+  box-shadow: 0 0 0 2px rgba(38, 143, 255, 0.5); /* Optional: Add a focus ring */
+}
   
   /* Modal Overlay */
   .Overlay {
