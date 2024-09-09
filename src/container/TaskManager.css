@@ -51,8 +51,10 @@
   align-items: center;
   justify-content: space-between;
   padding: 15px;
+  box-shadow: rgba(3, 102, 214, 0.3) 0px 0px 0px 3px;
   margin-top: 1rem;
-  border: 1px solid #ddd; /* Light border for better visibility */
+  
+  /* border: 1px solid #000000; Light border for better visibility */
   border-radius: 4px; /* Rounded corners */
 }
 
