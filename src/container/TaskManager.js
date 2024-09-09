@@ -148,7 +148,9 @@ const TaskManager = () => {
           <motion.button  whileTap={{ scale: 0.9 }} onClick={() => setFilter("All")} className={`button-name ${filter === "All" ? "active" : ""}`} role="button">
             All
           </motion.button>
-          <motion.button  whileTap={{ scale: 0.9 }} className={`button-name ${filter === "Completed" ? "active" : ""}`} role="button">
+          <motion.button  whileTap={{ scale: 0.9 }}
+         onClick={() => setFilter("Completed")}
+          className={`button-name ${filter === "Completed" ? "active" : ""}`} role="button">
             Completed
           </motion.button>
           <motion.button  whileTap={{ scale: 0.9 }} onClick={() => setFilter("Incomplete")} className={`button-name ${filter === "Incomplete" ? "active" : ""}`} role="button">
