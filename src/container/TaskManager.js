@@ -2,9 +2,11 @@ import React, { useState, useEffect } from "react";
 import Modal from "react-modal";
 import { CSSTransition } from "react-transition-group";
 import "./TaskManager.css";
+import { toast, ToastContainer } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
 
 // Set the app element for accessibility
-Modal.setAppElement('#root');
+Modal.setAppElement("#root");
 
 const TaskManager = () => {
   // State for tasks
@@ -29,7 +31,7 @@ const TaskManager = () => {
 
   // Load tasks from localStorage when component mounts
   useEffect(() => {
-    const storedTasks = localStorage.getItem('tasks');
+    const storedTasks = localStorage.getItem("tasks");
     if (storedTasks) {
       setArr(JSON.parse(storedTasks));
     }
@@ -37,13 +39,18 @@ const TaskManager = () => {
 
   // Save tasks to localStorage whenever tasks change
   useEffect(() => {
-    localStorage.setItem('tasks', JSON.stringify(arr));
+    localStorage.setItem("tasks", JSON.stringify(arr));
   }, [arr]);
 
   // Filter tasks based on selected filter and search term
-  const filteredTasks = arr.filter(task => {
-    const matchesFilter = filter === "All" || (filter === "Completed" && task.completed) || (filter === "Incomplete" && !task.completed);
-    const matchesSearch = task.title.toLowerCase().includes(searchTerm.toLowerCase());
+  const filteredTasks = arr.filter((task) => {
+    const matchesFilter =
+      filter === "All" ||
+      (filter === "Completed" && task.completed) ||
+      (filter === "Incomplete" && !task.completed);
+    const matchesSearch = task.title
+      .toLowerCase()
+      .includes(searchTerm.toLowerCase());
     return matchesFilter && matchesSearch;
   });
 
@@ -79,19 +86,25 @@ const TaskManager = () => {
 
   const addTask = () => {
     if (title === "" || description === "" || date === "") {
-      alert("Please add the details properly");
+        error("Please add the details properly");
     } else {
       const newTask = { title, description, dueDate: date, completed: false };
-      setArr(prevArr => [...prevArr, newTask]);
+      setArr((prevArr) => [...prevArr, newTask]);
       closeAddModal();
+      success("Successfully Added the Task")
     }
   };
 
   const editTask = () => {
     if (editIndex !== null) {
-      setArr(prevArr => {
+      setArr((prevArr) => {
         const updatedTasks = [...prevArr];
-        updatedTasks[editIndex] = { ...updatedTasks[editIndex], title, description, dueDate: date };
+        updatedTasks[editIndex] = {
+          ...updatedTasks[editIndex],
+          title,
+          description,
+          dueDate: date,
+        };
         return updatedTasks;
       });
       closeAddModal();
@@ -100,30 +113,54 @@ const TaskManager = () => {
 
   const removeBtn = () => {
     if (deleteIndex !== null) {
-      setArr(prevArr => prevArr.filter((_, index) => index !== deleteIndex));
+      setArr((prevArr) => prevArr.filter((_, index) => index !== deleteIndex));
       closeDeleteModal();
     }
   };
 
   const completeTask = (index) => {
-    setArr(prevArr => {
+    setArr((prevArr) => {
       const updatedTasks = [...prevArr];
       updatedTasks[index].completed = !updatedTasks[index].completed;
       return updatedTasks;
     });
   };
 
+  const error = (text) => {
+    toast.error(text, {
+        position: "top-center"
+      });
+}
+  const success = (text) => {
+    toast.success(text, {
+        position: "top-center"
+      });
+}
+
   return (
     <>
+     <ToastContainer />
       <div className="TaskManager_container">
         <div className="btns">
-          <button onClick={() => setFilter("All")} className="button-name" role="button">
+          <button
+            onClick={() => setFilter("All")}
+            className="button-name"
+            role="button"
+          >
             All
           </button>
-          <button onClick={() => setFilter("Completed")} className="button-name" role="button">
+          <button
+            onClick={() => setFilter("Completed")}
+            className="button-name"
+            role="button"
+          >
             Completed
           </button>
-          <button onClick={() => setFilter("Incomplete")} className="button-name" role="button">
+          <button
+            onClick={() => setFilter("Incomplete")}
+            className="button-name"
+            role="button"
+          >
             Incomplete
           </button>
           <button onClick={openAddModal} className="button-name" role="button">
@@ -224,23 +261,32 @@ const TaskManager = () => {
           <h3>Submission</h3>
         </div>
         {filteredTasks.length === 0 ? (
-          <h2 className="no-tasks-message">
-            No Tasks Found
-          </h2>
+          <h2 className="no-tasks-message">No Tasks Found</h2>
         ) : (
           filteredTasks.map((data, idx) => (
             <div className="cards" key={idx}>
               <h3>
                 {idx + 1}. <span>{data.title}</span>
-                <i onClick={() => openEditModal(idx)} className="ri-edit-2-fill edit"></i>
+                <i
+                  onClick={() => openEditModal(idx)}
+                  className="ri-edit-2-fill edit"
+                ></i>
               </h3>
               <p>{data.description}</p>
               <div>
                 <p>Date:-{data.dueDate}</p>
-                <button className="completeBtn" onClick={() => completeTask(idx)}>
+                <button
+                  className="completeBtn"
+                  onClick={() => completeTask(idx)}
+                >
                   {data.completed ? "Complete" : "Incomplete"}
                 </button>
-                <button className="deleteBtn" onClick={() => openDeleteModal(idx)}>Delete</button>
+                <button
+                  className="deleteBtn"
+                  onClick={() => openDeleteModal(idx)}
+                >
+                  Delete
+                </button>
               </div>
             </div>
           ))
