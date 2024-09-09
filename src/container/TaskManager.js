@@ -4,6 +4,7 @@ import { CSSTransition } from "react-transition-group";
 import "./TaskManager.css";
 import { toast, ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
+import {motion} from 'framer-motion'
 
 // Set the app element for accessibility
 Modal.setAppElement("#root");
@@ -144,18 +145,18 @@ const TaskManager = () => {
       <ToastContainer />
       <div className="TaskManager_container">
         <div className="btns">
-          <button onClick={() => setFilter("All")} className={`button-name ${filter === "All" ? "active" : ""}`} role="button">
+          <motion.button  whileTap={{ scale: 0.9 }} onClick={() => setFilter("All")} className={`button-name ${filter === "All" ? "active" : ""}`} role="button">
             All
-          </button>
-          <button onClick={() => setFilter("Completed")} className={`button-name ${filter === "Completed" ? "active" : ""}`} role="button">
+          </motion.button>
+          <motion.button  whileTap={{ scale: 0.9 }} className={`button-name ${filter === "Completed" ? "active" : ""}`} role="button">
             Completed
-          </button>
-          <button onClick={() => setFilter("Incomplete")} className={`button-name ${filter === "Incomplete" ? "active" : ""}`} role="button">
+          </motion.button>
+          <motion.button  whileTap={{ scale: 0.9 }} onClick={() => setFilter("Incomplete")} className={`button-name ${filter === "Incomplete" ? "active" : ""}`} role="button">
             Incomplete
-          </button>
-          <button onClick={openAddModal} className="button-name" role="button">
+          </motion.button>
+          <motion.button  whileTap={{ scale: 0.9 }} onClick={openAddModal} className="button-name" role="button">
             Add Task
-          </button>
+          </motion.button>
         </div>
 
         {/* Search Bar */}
@@ -185,7 +186,7 @@ const TaskManager = () => {
           unmountOnExit
         >
           <div className="modal-content">
-            <h2>{editIndex !== null ? "Edit Task" : "Add Task"}</h2>
+            <h2 style={{textAlign:'center',textDecoration:'underline',marginBottom:'15px'}}>{editIndex !== null ? "Edit Task" : "Add Task"}</h2>
             <label>
               Title:
               <input
@@ -211,12 +212,12 @@ const TaskManager = () => {
                 onChange={(e) => setDate(e.target.value)}
               />
             </label>
-            <button onClick={editIndex !== null ? editTask : addTask}>
+            <motion.button  whileTap={{ scale: 0.9 }} onClick={editIndex !== null ? editTask : addTask}>
               {editIndex !== null ? "Save Changes" : "Add Task"}
-            </button>
-            <button onClick={closeAddModal} className="cancel">
+            </motion.button>
+            <motion.button  whileTap={{ scale: 0.9 }} onClick={closeAddModal} className="cancel">
               Cancel
-            </button>
+            </motion.button>
           </div>
         </CSSTransition>
       </Modal>
@@ -230,12 +231,12 @@ const TaskManager = () => {
         overlayClassName="Overlay"
       >
         <h2>Are you sure you want to delete this task?</h2>
-        <button onClick={removeBtn} className="confirm">
+        <motion.button  whileTap={{ scale: 0.9 }} onClick={removeBtn} className="confirm">
           Yes, Delete
-        </button>
-        <button onClick={closeDeleteModal} className="cancel">
+        </motion.button>
+        <motion.button  whileTap={{ scale: 0.9 }} onClick={closeDeleteModal} className="cancel">
           Cancel
-        </button>
+        </motion.button>
       </Modal>
 
       <div className="maintain_cards">
@@ -262,18 +263,18 @@ const TaskManager = () => {
               <p>{data.description}</p>
               <div>
                 <p>Date:-{data.dueDate}</p>
-                <button
+                <motion.button  whileTap={{ scale: 0.9 }}
                   className="completeBtn"
                   onClick={() => completeTask(idx)}
                 >
                   {data.completed ? "Mark Incomplete" : "Mark Complete"}
-                </button>
-                <button
+                </motion.button>
+                <motion.button  whileTap={{ scale: 0.9 }}
                   className="deleteBtn"
                   onClick={() => openDeleteModal(idx)}
                 >
                   Delete
-                </button>
+                </motion.button>
               </div>
             </div>
           ))
