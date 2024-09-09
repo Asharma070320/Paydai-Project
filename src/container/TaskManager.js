@@ -14,10 +14,13 @@ const TaskManager = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [date, setDate] = useState("");
-  
+
   // State for filters
   const [filter, setFilter] = useState("All");
-  
+
+  // State for search
+  const [searchTerm, setSearchTerm] = useState("");
+
   // State for modals
   const [editIndex, setEditIndex] = useState(null);
   const [showAddModal, setShowAddModal] = useState(false);
@@ -37,12 +40,11 @@ const TaskManager = () => {
     localStorage.setItem('tasks', JSON.stringify(arr));
   }, [arr]);
 
-  // Filter tasks based on selected filter
+  // Filter tasks based on selected filter and search term
   const filteredTasks = arr.filter(task => {
-    if (filter === "All") return true;
-    if (filter === "Completed") return task.completed;
-    if (filter === "Incomplete") return !task.completed;
-    return true;
+    const matchesFilter = filter === "All" || (filter === "Completed" && task.completed) || (filter === "Incomplete" && !task.completed);
+    const matchesSearch = task.title.toLowerCase().includes(searchTerm.toLowerCase());
+    return matchesFilter && matchesSearch;
   });
 
   const openAddModal = () => {
@@ -110,7 +112,6 @@ const TaskManager = () => {
       return updatedTasks;
     });
   };
-console.log(arr);
 
   return (
     <>
@@ -128,6 +129,17 @@ console.log(arr);
           <button onClick={openAddModal} className="button-name" role="button">
             Add Task
           </button>
+        </div>
+
+        {/* Search Bar */}
+        <div className="search-bar-container">
+          <input
+            type="text"
+            className="search-bar"
+            placeholder="Search tasks by title..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
         </div>
       </div>
 
@@ -175,7 +187,9 @@ console.log(arr);
             <button onClick={editIndex !== null ? editTask : addTask}>
               {editIndex !== null ? "Save Changes" : "Add Task"}
             </button>
-            <button onClick={closeAddModal}>Cancel</button>
+            <button onClick={closeAddModal} className="cancel">
+              Cancel
+            </button>
           </div>
         </CSSTransition>
       </Modal>
@@ -189,8 +203,12 @@ console.log(arr);
         overlayClassName="Overlay"
       >
         <h2>Are you sure you want to delete this task?</h2>
-        <button onClick={removeBtn}>Yes, Delete</button>
-        <button onClick={closeDeleteModal}>Cancel</button>
+        <button onClick={removeBtn} className="confirm">
+          Yes, Delete
+        </button>
+        <button onClick={closeDeleteModal} className="cancel">
+          Cancel
+        </button>
       </Modal>
 
       <div className="maintain_cards">
@@ -206,28 +224,26 @@ console.log(arr);
           <h3>Submission</h3>
         </div>
         {filteredTasks.length === 0 ? (
-          <h2 style={{ textAlign: "center", marginTop: "5rem" }}>
+          <h2 className="no-tasks-message">
             No Tasks Found
           </h2>
         ) : (
-          filteredTasks.map((data, idx) => {
-            return (
-              <div className="cards" key={idx}>
-                <h3>
-                  {idx + 1}. <span>{data.title}</span>
-                  <i onClick={() => openEditModal(idx)} className="ri-edit-2-fill edit"></i>
-                </h3>
-                <p>{data.description}</p>
-                <div>
-                  <p>{data.dueDate}</p>
-                  <button onClick={() => completeTask(idx)}>
-                    {data.completed===false ? "Incomplete" : "Complete"}
-                  </button>
-                  <button onClick={() => openDeleteModal(idx)}>Delete</button>
-                </div>
+          filteredTasks.map((data, idx) => (
+            <div className="cards" key={idx}>
+              <h3>
+                {idx + 1}. <span>{data.title}</span>
+                <i onClick={() => openEditModal(idx)} className="ri-edit-2-fill edit"></i>
+              </h3>
+              <p>{data.description}</p>
+              <div>
+                <p>{data.dueDate}</p>
+                <button onClick={() => completeTask(idx)}>
+                  {data.completed ? "Complete" : "Incomplete"}
+                </button>
+                <button onClick={() => openDeleteModal(idx)}>Delete</button>
               </div>
-            );
-          })
+            </div>
+          ))
         )}
       </div>
     </>
