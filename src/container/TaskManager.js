@@ -91,7 +91,7 @@ const TaskManager = () => {
       const newTask = { title, description, dueDate: date, completed: false };
       setArr((prevArr) => [...prevArr, newTask]);
       closeAddModal();
-      success("Successfully Added the Task")
+      success("Successfully Added the Task");
     }
   };
 
@@ -115,6 +115,7 @@ const TaskManager = () => {
     if (deleteIndex !== null) {
       setArr((prevArr) => prevArr.filter((_, index) => index !== deleteIndex));
       closeDeleteModal();
+      success("Successfully Deleted");
     }
   };
 
@@ -129,38 +130,27 @@ const TaskManager = () => {
   const error = (text) => {
     toast.error(text, {
         position: "top-center"
-      });
-}
+    });
+  };
+
   const success = (text) => {
     toast.success(text, {
         position: "top-center"
-      });
-}
+    });
+  };
 
   return (
     <>
-     <ToastContainer />
+      <ToastContainer />
       <div className="TaskManager_container">
         <div className="btns">
-          <button
-            onClick={() => setFilter("All")}
-            className="button-name"
-            role="button"
-          >
+          <button onClick={() => setFilter("All")} className={`button-name ${filter === "All" ? "active" : ""}`} role="button">
             All
           </button>
-          <button
-            onClick={() => setFilter("Completed")}
-            className="button-name"
-            role="button"
-          >
+          <button onClick={() => setFilter("Completed")} className={`button-name ${filter === "Completed" ? "active" : ""}`} role="button">
             Completed
           </button>
-          <button
-            onClick={() => setFilter("Incomplete")}
-            className="button-name"
-            role="button"
-          >
+          <button onClick={() => setFilter("Incomplete")} className={`button-name ${filter === "Incomplete" ? "active" : ""}`} role="button">
             Incomplete
           </button>
           <button onClick={openAddModal} className="button-name" role="button">
@@ -267,10 +257,7 @@ const TaskManager = () => {
             <div className="cards" key={idx}>
               <h3>
                 {idx + 1}. <span>{data.title}</span>
-                <i
-                  onClick={() => openEditModal(idx)}
-                  className="ri-edit-2-fill edit"
-                ></i>
+                <i onClick={() => openEditModal(idx)} className="ri-edit-2-fill edit"></i>
               </h3>
               <p>{data.description}</p>
               <div>
@@ -279,7 +266,7 @@ const TaskManager = () => {
                   className="completeBtn"
                   onClick={() => completeTask(idx)}
                 >
-                  {data.completed ? "Complete" : "Incomplete"}
+                  {data.completed ? "Mark Incomplete" : "Mark Complete"}
                 </button>
                 <button
                   className="deleteBtn"
@@ -297,3 +284,4 @@ const TaskManager = () => {
 };
 
 export default TaskManager;
+
