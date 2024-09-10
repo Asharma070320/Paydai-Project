@@ -241,7 +241,7 @@ const TaskManager = ({ theme }) => {
               <div>
                 <p>Date: {data.dueDate}</p>
                 <motion.button whileTap={{ scale: 0.9 }} className="completeBtn" onClick={() => completeTask(idx)}>
-                  {data.completed ? "Mark Incomplete" : "Mark Complete"}
+                  {data.completed ? "Incomplete" : "Complete"}
                 </motion.button>
                 <motion.button whileTap={{ scale: 0.9 }} className="deleteBtn" onClick={() => openDeleteModal(idx)}>
                   Delete
