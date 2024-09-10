@@ -3,8 +3,8 @@ import "./Navbar.css";
 
 const Navbar = ({ theme, toggleTheme }) => {
   return (
-    <div className="nav_container" style={{ backgroundColor: theme ? "black" : "#dddbff", color: theme ? "white" : "black" }}>
-      <i>Paydai</i>
+    <div className="nav_container" style={{ backgroundColor: theme ? "#2a2828" : "#dddbff", color: theme ? "white" : "black" }}>
+      <img className="setImg" src="https://www.itspaydai.com/assets/logo-DnAxFD0z.svg" alt="paydai_img" />
       <div></div>
       <div className="toggleBtn">
         <h4>Light</h4>

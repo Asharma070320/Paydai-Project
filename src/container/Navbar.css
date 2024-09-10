@@ -2,14 +2,11 @@
     display:flex;
     justify-content: space-around;
     align-items: center;
-    /* gap: 27rem; */
-    /* padding: 10px 0px; */
     margin-bottom: 1rem;
-    border: 1.5px solid ;
+    border-bottom: 2px solid grey;
 }
-.nav_container i{
-    font-size: 1.3rem;
-    font-weight: 500;
+.nav_container .setImg{
+    width: 50px;
 }
 
 /* From Uiverse.io by cuzpq */ 

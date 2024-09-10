@@ -122,21 +122,8 @@ const TaskManager = ({ theme }) => {
   return (
     <>
       <ToastContainer />
-      <div className="TaskManager_container" style={{ backgroundColor: theme ? "black" : "#dddbff", color: theme ? "white" : "black" }}>
-        <div className="btns">
-          <motion.button whileTap={{ scale: 0.9 }} onClick={() => setFilter("All")} className={`button-name ${filter === "All" ? "active" : ""}`} role="button">
-            All
-          </motion.button>
-          <motion.button whileTap={{ scale: 0.9 }} onClick={() => setFilter("Completed")} className={`button-name ${filter === "Completed" ? "active" : ""}`} role="button">
-            Completed
-          </motion.button>
-          <motion.button whileTap={{ scale: 0.9 }} onClick={() => setFilter("Incomplete")} className={`button-name ${filter === "Incomplete" ? "active" : ""}`} role="button">
-            Incomplete
-          </motion.button>
-          <motion.button whileTap={{ scale: 0.9 }} onClick={openAddModal} className="button-name" role="button">
-            Add Task
-          </motion.button>
-        </div>
+      <div className="TaskManager_container" style={{ backgroundColor: theme ? "#2a2828" : "#dddbff", color: theme ? "white" : "black" }}>
+        
 
         <div className="search-bar-container">
           <input
@@ -146,6 +133,20 @@ const TaskManager = ({ theme }) => {
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
+        </div>
+        <div className="btns">
+          <motion.button whileTap={{ scale: 0.9 }} onClick={() => setFilter("All")} className={`button-name ${filter === "All" ? "active" : ""}`} role="button">
+            All <i class="ri-arrow-down-s-fill"></i>
+          </motion.button>
+          <motion.button style={{backgroundColor:'green'}} whileTap={{ scale: 0.9 }} onClick={() => setFilter("Completed")} className={`button-name ${filter === "Completed" ? "active" : ""}`} role="button">
+            Completed
+          </motion.button>
+          <motion.button style={{backgroundColor:'#af3737'}} whileTap={{ scale: 0.9 }} onClick={() => setFilter("Incomplete")} className={`button-name ${filter === "Incomplete" ? "active" : ""}`} role="button">
+            Incomplete
+          </motion.button>
+          <motion.button whileTap={{ scale: 0.9 }} onClick={openAddModal} className="button-name" role="button">
+            Add Task +
+          </motion.button>
         </div>
       </div>
 

@@ -9,7 +9,7 @@ const App = () => {
   const toggleTheme = () => setTheme(prevTheme => !prevTheme);
 
   return (
-    <div style={{ backgroundColor: theme ? "black" : "#dddbff", color: theme ? "white" : "black", minHeight: "100vh" }}>
+    <div style={{ backgroundColor: theme ? "#2a2828" : "#dddbff", color: theme ? "white" : "black", minHeight: "100vh" }}>
       <Navbar theme={theme} toggleTheme={toggleTheme} />
       <TaskManager theme={theme} />
     </div>
