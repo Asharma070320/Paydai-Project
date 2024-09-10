@@ -72,3 +72,12 @@
   .dark{
     font-weight: 500;
   }
+
+  .set_Title{
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .set_Title img{
+    width: 40px;
+  }

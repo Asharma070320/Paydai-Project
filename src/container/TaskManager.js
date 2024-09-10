@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from "react";
-import Modal from "react-modal";
-import { CSSTransition } from "react-transition-group";
-import "./TaskManager.css";
-import { toast, ToastContainer } from 'react-toastify';
+import TaskModal from "./TaskModal";
+import DeleteModal from "./DeleteModal";
+import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { motion } from 'framer-motion';
-
-Modal.setAppElement("#root");
+import { motion } from "framer-motion";
+import "./TaskManager.css";
 
 const TaskManager = ({ theme }) => {
   const [arr, setArr] = useState([]);
@@ -36,7 +34,9 @@ const TaskManager = ({ theme }) => {
       filter === "All" ||
       (filter === "Completed" && task.completed) ||
       (filter === "Incomplete" && !task.completed);
-    const matchesSearch = task.title.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesSearch = task.title
+      .toLowerCase()
+      .includes(searchTerm.toLowerCase());
     return matchesFilter && matchesSearch;
   });
 
@@ -122,9 +122,14 @@ const TaskManager = ({ theme }) => {
   return (
     <>
       <ToastContainer />
-      <div className="TaskManager_container" style={{ backgroundColor: theme ? "#2a2828" : "#dddbff", color: theme ? "white" : "black" }}>
-        
-
+      <div
+        className="TaskManager_container"
+        style={{
+          backgroundColor: theme ? "#2a2828" : "#dddbff",
+          color: theme ? "white" : "black",
+        }}
+      >
+        {/* -------Search Bar --------- */}
         <div className="search-bar-container">
           <input
             type="text"
@@ -134,96 +139,69 @@ const TaskManager = ({ theme }) => {
             onChange={(e) => setSearchTerm(e.target.value)}
           />
         </div>
+        {/* ------ Show all tasks buttons */}
         <div className="btns">
-          <motion.button whileTap={{ scale: 0.9 }} onClick={() => setFilter("All")} className={`button-name ${filter === "All" ? "active" : ""}`} role="button">
+          <motion.button
+            whileTap={{ scale: 0.9 }}
+            onClick={() => setFilter("All")}
+            className={`button-name ${filter === "All" ? "active" : ""}`}
+            role="button"
+          >
             All <i class="ri-arrow-down-s-fill"></i>
           </motion.button>
-          <motion.button style={{backgroundColor:'green'}} whileTap={{ scale: 0.9 }} onClick={() => setFilter("Completed")} className={`button-name ${filter === "Completed" ? "active" : ""}`} role="button">
+          <motion.button
+            style={{ backgroundColor: "green" }}
+            whileTap={{ scale: 0.9 }}
+            onClick={() => setFilter("Completed")}
+            className={`button-name ${filter === "Completed" ? "active" : ""}`}
+            role="button"
+          >
             Completed
           </motion.button>
-          <motion.button style={{backgroundColor:'#af3737'}} whileTap={{ scale: 0.9 }} onClick={() => setFilter("Incomplete")} className={`button-name ${filter === "Incomplete" ? "active" : ""}`} role="button">
+          <motion.button
+            style={{ backgroundColor: "#af3737" }}
+            whileTap={{ scale: 0.9 }}
+            onClick={() => setFilter("Incomplete")}
+            className={`button-name ${filter === "Incomplete" ? "active" : ""}`}
+            role="button"
+          >
             Incomplete
           </motion.button>
-          <motion.button whileTap={{ scale: 0.9 }} onClick={openAddModal} className="button-name" role="button">
+          <motion.button
+            style={{ background: "linear-gradient(45deg, #ff6f61, #ff3d00)" }}
+            whileTap={{ scale: 0.9 }}
+            onClick={openAddModal}
+            className="button-name"
+            role="button"
+          >
             Add Task +
           </motion.button>
         </div>
       </div>
 
-      <Modal
+      <TaskModal
         isOpen={showAddModal}
         onRequestClose={closeAddModal}
-        contentLabel="Add/Edit Task"
-        className="Modal"
-        overlayClassName="Overlay"
-      >
-        <CSSTransition
-          in={showAddModal}
-          timeout={300}
-          classNames="fade"
-          unmountOnExit
-        >
-          <div className="modal-content">
-            <h2 style={{ textAlign: 'center', textDecoration: 'underline', marginBottom: '15px' }}>{editIndex !== null ? "Edit Task" : "Add Task"}</h2>
-            <label>
-              Title:
-              <input
-                type="text"
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
-                placeholder="Add the title"
-              />
-            </label>
-            <label>
-              Description:
-              <textarea
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-                placeholder="Give the description"
-              />
-            </label>
-            <label>
-              Due Date:
-              <input
-                type="date"
-                value={date}
-                onChange={(e) => setDate(e.target.value)}
-              />
-            </label>
-            <motion.button whileTap={{ scale: 0.9 }} onClick={editIndex !== null ? editTask : addTask}>
-              {editIndex !== null ? "Save Changes" : "Add Task"}
-            </motion.button>
-            <motion.button whileTap={{ scale: 0.9 }} onClick={closeAddModal} className="cancel">
-              Cancel
-            </motion.button>
-          </div>
-        </CSSTransition>
-      </Modal>
+        title={title}
+        description={description}
+        date={date}
+        onTitleChange={setTitle}
+        onDescriptionChange={setDescription}
+        onDateChange={setDate}
+        onSave={editIndex !== null ? editTask : addTask}
+        onCancel={closeAddModal}
+        isEditing={editIndex !== null}
+      />
 
-      <Modal
+      <DeleteModal
         isOpen={showDeleteModal}
         onRequestClose={closeDeleteModal}
-        contentLabel="Delete Confirmation"
-        className="Modal"
-        overlayClassName="Overlay"
-      >
-        <h2>Are you sure you want to delete this task?</h2>
-        <motion.button whileTap={{ scale: 0.9 }} onClick={removeBtn} className="confirm">
-          Yes, Delete
-        </motion.button>
-        <motion.button whileTap={{ scale: 0.9 }} onClick={closeDeleteModal} className="cancel">
-          Cancel
-        </motion.button>
-      </Modal>
+        onConfirm={removeBtn}
+        onCancel={closeDeleteModal}
+      />
 
       <div className="maintain_cards">
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-          }}
-        >
+        <div className="set_headings">
           <h3>Title</h3>
           <h3>Description</h3>
           <h3>Submission</h3>
@@ -235,15 +213,26 @@ const TaskManager = ({ theme }) => {
             <div className="cards" key={idx}>
               <h3>
                 {idx + 1}. <span>{data.title}</span>
-                <i onClick={() => openEditModal(idx)} className="ri-edit-2-fill edit"></i>
+                <i
+                  onClick={() => openEditModal(idx)}
+                  className="ri-edit-2-fill edit"
+                ></i>
               </h3>
               <p>{data.description}</p>
-              <div>
+              <div className="date_section">
                 <p>Date: {data.dueDate}</p>
-                <motion.button whileTap={{ scale: 0.9 }} className="completeBtn" onClick={() => completeTask(idx)}>
+                <motion.button
+                  whileTap={{ scale: 0.9 }}
+                  className="completeBtn"
+                  onClick={() => completeTask(idx)}
+                >
                   {data.completed ? "Incomplete" : "Complete"}
                 </motion.button>
-                <motion.button whileTap={{ scale: 0.9 }} className="deleteBtn" onClick={() => openDeleteModal(idx)}>
+                <motion.button
+                  whileTap={{ scale: 0.9 }}
+                  className="deleteBtn"
+                  onClick={() => openDeleteModal(idx)}
+                >
                   Delete
                 </motion.button>
               </div>

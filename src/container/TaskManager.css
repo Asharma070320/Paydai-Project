@@ -13,7 +13,7 @@
   align-items: center;
   gap: 1rem;
   margin-bottom: 1rem;
-   /* border: 2px solid; */
+  /* border: 2px solid; */
 }
 
 /* Search Bar Container */
@@ -55,7 +55,7 @@
   padding: 10px;
   box-shadow: rgba(3, 102, 214, 0.3) 0px 0px 0px 3px;
   margin-bottom: 1rem;
-  
+
   /* border: 1px solid #000000; Light border for better visibility */
   border-radius: 4px; /* Rounded corners */
 }
@@ -69,38 +69,35 @@
 .button-name,
 .completeBtn,
 .deleteBtn {
-    text-align: center;
+  text-align: center;
   margin-right: 10px;
-  padding: 5px 5px;
+  padding: 7px 10px;
   border: none;
   border-radius: 4px;
-  background-color: #007bff; 
+  background-color: #007bff;
   color: white;
   cursor: pointer;
-  outline: none; /* Remove default outline */
-  transition: background-color 1s; /* Smooth background color transition */
+  outline: none;
+  transition: background-color 1s;
 }
 
-/* Button Hover State */
 .button-name:hover,
 .completeBtn:hover,
 .deleteBtn:hover {
-  background-color: #0056b3; /* Darker background color on hover */
+  background-color: #0056b3;
 }
 
-/* Button Active State */
 .button-name:active,
 .completeBtn:active,
 .deleteBtn:active {
-  background-color: #004080; /* Even darker background color when clicked */
+  background-color: #004080;
 }
 
-/* Button Focus State */
 .button-name:focus,
 .completeBtn:focus,
 .deleteBtn:focus {
-  background-color: #007bff; /* Maintain background color on focus */
-  box-shadow: 0 0 0 2px rgba(38, 143, 255, 0.5); /* Optional: Add a focus ring */
+  background-color: #007bff;
+  box-shadow: 0 0 0 2px rgba(38, 143, 255, 0.5);
 }
 
 /* Modal Overlay */
@@ -183,3 +180,49 @@
   margin-bottom: 15px;
 }
 
+.set_headings {
+  width: 96%;
+  display: flex;
+  padding-left: 10px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+@media screen and (max-width: 426px) {
+  .btns {
+    gap: 0rem;
+  }
+  .button-name,
+  .completeBtn,
+  .deleteBtn {
+    padding: 4px 5px;
+  }
+  .search-bar-container {
+    width: 95%;
+    max-width: 400px; 
+  }
+  .set_headings {
+   font-size: 0.8rem;
+  }
+  .cards {
+    padding: 5px 0px;
+  }
+  .cards h3{
+    font-size: 0.9rem;
+  }
+  .cards p{
+    font-size: 0.9rem;
+  }
+  .date_section p{
+    font-size: 0.9rem;
+  }
+  .completeBtn,
+.deleteBtn{
+  margin-right: 5px;
+  padding: 5px 7px;
+}
+.set_headings {
+    width: 96%;
+    justify-content: space-around;
+  }
+}
