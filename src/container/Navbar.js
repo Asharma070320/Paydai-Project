@@ -4,12 +4,12 @@ import "./Navbar.css";
 const Navbar = ({ theme, toggleTheme }) => {
   return (
     <div className="nav_container" style={{ backgroundColor: theme ? "#2a2828" : "#dddbff", color: theme ? "white" : "black" }}>
-      <img className="setImg" src="https://www.itspaydai.com/assets/logo-DnAxFD0z.svg" alt="paydai_img" />
+      <i>Paydai</i>
       <div></div>
       <div className="toggleBtn">
-        <h4>Light</h4>
+      <i class="ri-sun-fill"></i>
         <input type="checkbox" checked={theme} onChange={toggleTheme} className="theme-checkbox" />
-        <h4>Dark</h4>
+        <i class="ri-moon-fill"></i>
       </div>
     </div>
   );
