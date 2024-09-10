@@ -3,8 +3,13 @@
     justify-content: space-around;
     align-items: center;
     /* gap: 27rem; */
-    padding: 10px 0px;
-    /* border: 2px solid ; */
+    /* padding: 10px 0px; */
+    margin-bottom: 1rem;
+    border: 1.5px solid ;
+}
+.nav_container i{
+    font-size: 1.3rem;
+    font-weight: 500;
 }
 
 /* From Uiverse.io by cuzpq */ 

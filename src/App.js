@@ -1,16 +1,19 @@
-import React, { useState } from 'react'
-import './App.css'
-import Navbar from './container/Navbar'
-import TaskManager from './container/TaskManager'
+import React, { useState } from "react";
+
+import TaskManager from "./container/TaskManager";
+import Navbar from "./container/Navbar";
 
 const App = () => {
-  const[data,setData] = useState();
-  return (
-    <div className='container'>
-      <Navbar  />
-      <TaskManager  />
-    </div>
-  )
-}
+  const [theme, setTheme] = useState(false);
 
-export default App
+  const toggleTheme = () => setTheme(prevTheme => !prevTheme);
+
+  return (
+    <div style={{ backgroundColor: theme ? "black" : "#dddbff", color: theme ? "white" : "black", minHeight: "100vh" }}>
+      <Navbar theme={theme} toggleTheme={toggleTheme} />
+      <TaskManager theme={theme} />
+    </div>
+  );
+};
+
+export default App;
